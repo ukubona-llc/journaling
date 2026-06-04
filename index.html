@@ -58,13 +58,19 @@
     }
 
     .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 2rem;
       border-bottom: 1px solid var(--border-color);
       background: var(--bg-secondary);
       transition: all 0.3s ease;
+    }
+
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .logo-container {
@@ -368,6 +374,7 @@
 </head>
 <body>
   <div class="header">
+  <div class="header-inner">
     <div class="logo-container">
       <img class="logo" id="logo" src="https://abikesa.github.io/logos/assets/ukubona-dark.png" alt="Ukubona" />
     </div>
@@ -376,6 +383,7 @@
       <div class="header-subtitle">Phases with perfect inverse temporal order</div>
     </div>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+  </div>
   </div>
 
   <div class="main">
@@ -394,20 +402,20 @@
             <tr>
               <td><span class="badge b1">I — Tensor</span></td>
               <td>June 2026</td>
-              <td>Ukubona</td>
+              <td>You</td>
               <td>Sovereign Layer, Raw Patient Data, Okubonabona, Perspectivism</td>
             </tr>
             <tr>
               <td><span class="badge b2">II — Matrix</span></td>
               <td>December 2025</td>
-              <td>Google</td>
+              <td>Google / Gemini</td>
               <td>Scaffolding, Attention Weighting, Implementation, Roundtable</td>
             </tr>
             <tr>
               <td><span class="badge b3">III — Vector</span></td>
               <td>June 2025</td>
               <td>Anthropic</td>
-              <td>Friction, Repression, Unwritten Append, Dieting</td>
+              <td>Friction, Repression, The Unwritten Append, Dieting</td>
             </tr>
             <tr>
               <td><span class="badge b4">IV — Eigenmode</span></td>
