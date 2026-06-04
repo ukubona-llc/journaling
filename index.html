@@ -68,16 +68,16 @@
     }
 
     .logo-container {
-      width: 48px;
-      height: 48px;
+      width: 96px;
+      height: 96px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .logo {
-      width: 40px;
-      height: 40px;
+      width: 80px;
+      height: 80px;
       animation: rotate 120s linear infinite;
       transition: filter 0.3s ease;
     }
@@ -430,12 +430,15 @@
           <title>Chronological assembly of pentad phases, March 2023 to June 2026</title>
           <desc>V emerged first in March 2023, alone for 24 months, then IV through I rapidly assembled March 2025 to June 2026 — the inverse of pentadic order</desc>
           <defs>
-            <marker id="ta" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-              <path d="M2 1L8 5L2 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <marker id="ta-light" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M2 1L8 5L2 9" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </marker>
+            <marker id="ta-dark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M2 1L8 5L2 9" fill="none" stroke="#e0e6ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </marker>
           </defs>
 
-          <line x1="16" y1="60" x2="668" y2="60" stroke="var(--border-color)" stroke-width="1.5" marker-end="url(#ta)"/>
+          <line id="mainLine" x1="16" y1="60" x2="668" y2="60" stroke="var(--border-color)" stroke-width="1.5" marker-end="url(#ta-dark)"/>
 
           <line x1="28" y1="73" x2="406" y2="73" stroke="var(--border-color)" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.6"/>
           <text x="215" y="86" text-anchor="middle" font-size="12" fill="var(--text-secondary)">2-year isolation</text>
@@ -485,23 +488,32 @@
     const themeToggle = document.getElementById('themeToggle');
     const html = document.documentElement;
     const logo = document.getElementById('logo');
+    const mainLine = document.getElementById('mainLine');
     
     // Check for saved theme preference or default to dark
-    const currentTheme = localStorage.getItem('theme') || 'dark';
+    let currentTheme = localStorage.getItem('theme') || 'dark';
     html.setAttribute('data-theme', currentTheme);
     updateThemeUI();
     
     function updateThemeUI() {
-      const theme = html.getAttribute('data-theme');
-      themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
-      logo.src = theme === 'dark' 
+      currentTheme = html.getAttribute('data-theme');
+      themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+      logo.src = currentTheme === 'dark' 
         ? 'https://abikesa.github.io/logos/assets/ukubona-dark.png'
         : 'https://abikesa.github.io/logos/assets/ukubona-light.png';
+      
+      // Update SVG marker
+      if (mainLine) {
+        mainLine.setAttribute('marker-end', currentTheme === 'dark' ? 'url(#ta-dark)' : 'url(#ta-light)');
+      }
+      
+      // Force CSS variable update
+      document.body.style.transition = 'background 0.3s ease, color 0.3s ease';
     }
     
     themeToggle.addEventListener('click', () => {
-      const theme = html.getAttribute('data-theme');
-      const newTheme = theme === 'dark' ? 'light' : 'dark';
+      currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
       html.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
       updateThemeUI();
